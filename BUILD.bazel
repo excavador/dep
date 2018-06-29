@@ -1,0 +1,56 @@
+# gazelle:proto disable
+
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+gazelle(
+    name = "gazelle",
+    command = "update",
+    external = "vendored",
+    prefix = "github.com/golang/dep",
+)
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "analyzer.go",
+        "context.go",
+        "doc.go",
+        "lock.go",
+        "manifest.go",
+        "project.go",
+        "txn_writer.go",
+    ],
+    importpath = "github.com/golang/dep",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//gps:go_default_library",
+        "//gps/paths:go_default_library",
+        "//gps/pkgtree:go_default_library",
+        "//internal/fs:go_default_library",
+        "//vendor/github.com/pelletier/go-toml:go_default_library",
+        "//vendor/github.com/pkg/errors:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "analyzer_notwindows_test.go",
+        "analyzer_test.go",
+        "analyzer_windows_test.go",
+        "context_test.go",
+        "lock_test.go",
+        "manifest_test.go",
+        "project_test.go",
+        "test_project_context_test.go",
+        "txn_writer_test.go",
+    ],
+    data = glob(["testdata/**"]),
+    embed = [":go_default_library"],
+    deps = [
+        "//gps:go_default_library",
+        "//internal/test:go_default_library",
+        "//vendor/github.com/pkg/errors:go_default_library",
+    ],
+)

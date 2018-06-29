@@ -1,0 +1,15 @@
+# gazelle:exclude testdata
+# gazelle:ignore
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "fs.go",
+        "rename.go",
+        "rename_windows.go",
+    ],
+    importpath = "github.com/golang/dep/internal/fs",
+    visibility = ["//:__subpackages__"],
+    deps = ["//vendor/github.com/pkg/errors:go_default_library"],
+)

@@ -1,0 +1,19 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["importers.go"],
+    importpath = "github.com/golang/dep/internal/importers",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//:go_default_library",
+        "//gps:go_default_library",
+        "//internal/importers/glide:go_default_library",
+        "//internal/importers/glock:go_default_library",
+        "//internal/importers/godep:go_default_library",
+        "//internal/importers/govend:go_default_library",
+        "//internal/importers/govendor:go_default_library",
+        "//internal/importers/gvt:go_default_library",
+        "//internal/importers/vndr:go_default_library",
+    ],
+)
