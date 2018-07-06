@@ -13,14 +13,14 @@ system_git_repository(
 system_git_repository(
     name = "io_bazel_rules_go",
     remote = "https://github.com/bazelbuild/rules_go.git",
-    commit = "d850f8bbd15d94ce11a078b3933e92ebbf09f715",
+    commit = "3725f0ac7fa19c03a8d31ab3ef9ea150bf432f6a",
     verbose = True,
 )
 
 system_git_repository(
     name = "bazel_gazelle",
     remote = "https://github.com/bazelbuild/bazel-gazelle.git",
-    commit = "394f5355e0b91940f45bba9a705fb4382b234316",
+    commit = "b27f09bee3abba18d06e81c4cd217c54cb21f02e",
     verbose = True,
 )
 
