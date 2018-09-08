@@ -1,0 +1,35 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "digest.go",
+        "lock.go",
+        "lockdiff.go",
+        "locksat.go",
+    ],
+    importpath = "github.com/golang/dep/gps/verify",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//gps:go_default_library",
+        "//gps/paths:go_default_library",
+        "//gps/pkgtree:go_default_library",
+        "//vendor/github.com/armon/go-radix:go_default_library",
+        "//vendor/github.com/pkg/errors:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "digest_test.go",
+        "helper_types_test.go",
+        "lockdiff_test.go",
+        "locksat_test.go",
+    ],
+    embed = [":go_default_library"],
+    deps = [
+        "//gps:go_default_library",
+        "//gps/pkgtree:go_default_library",
+    ],
+)

@@ -1,0 +1,25 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "feedback.go",
+        "lockdiff.go",
+    ],
+    importpath = "github.com/golang/dep/internal/feedback",
+    visibility = ["//:__subpackages__"],
+    deps = ["//gps:go_default_library"],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "feedback_test.go",
+        "lockdiff_test.go",
+    ],
+    embed = [":go_default_library"],
+    deps = [
+        "//gps:go_default_library",
+        "//internal/test:go_default_library",
+    ],
+)

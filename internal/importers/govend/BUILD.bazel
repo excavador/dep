@@ -1,0 +1,29 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["importer.go"],
+    importpath = "github.com/golang/dep/internal/importers/govend",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//:go_default_library",
+        "//gps:go_default_library",
+        "//internal/importers/base:go_default_library",
+        "//vendor/github.com/pkg/errors:go_default_library",
+        "//vendor/gopkg.in/yaml.v2:go_default_library",
+    ],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = ["importer_test.go"],
+    data = glob(["testdata/**"]),
+    embed = [":go_default_library"],
+    deps = [
+        "//:go_default_library",
+        "//gps:go_default_library",
+        "//internal/importers/importertest:go_default_library",
+        "//internal/test:go_default_library",
+        "//vendor/github.com/pkg/errors:go_default_library",
+    ],
+)

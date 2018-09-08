@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "github.com/golang/dep/cmd/dep/testdata/init/directdeps",
+    visibility = ["//visibility:private"],
+    deps = ["//vendor/github.com/carolynvs/deptest-subpkg/subby:go_default_library"],
+)
+
+go_binary(
+    name = "directdeps",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)

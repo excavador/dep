@@ -1,0 +1,62 @@
+# gazelle:exclude testdata
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "check.go",
+        "doc.go",
+        "ensure.go",
+        "failures.go",
+        "feature_flags.go",
+        "gopath_scanner.go",
+        "graphviz.go",
+        "init.go",
+        "main.go",
+        "prune.go",
+        "root_analyzer.go",
+        "status.go",
+        "version.go",
+    ],
+    importpath = "github.com/golang/dep/cmd/dep",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//:go_default_library",
+        "//gps:go_default_library",
+        "//gps/paths:go_default_library",
+        "//gps/pkgtree:go_default_library",
+        "//gps/verify:go_default_library",
+        "//internal/feedback:go_default_library",
+        "//internal/fs:go_default_library",
+        "//internal/importers:go_default_library",
+        "//vendor/github.com/pkg/errors:go_default_library",
+        "//vendor/golang.org/x/sync/errgroup:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "dep",
+    embed = [":go_default_library"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "go_default_test",
+    srcs = [
+        "dep_test.go",
+        "ensure_test.go",
+        "gopath_scanner_test.go",
+        "graphviz_test.go",
+        "integration_test.go",
+        "status_test.go",
+    ],
+    embed = [":go_default_library"],
+    deps = [
+        "//:go_default_library",
+        "//gps:go_default_library",
+        "//gps/pkgtree:go_default_library",
+        "//internal/test:go_default_library",
+        "//internal/test/integration:go_default_library",
+        "//vendor/github.com/pkg/errors:go_default_library",
+    ],
+)
